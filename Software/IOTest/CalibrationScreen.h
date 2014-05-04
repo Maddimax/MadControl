@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Channel.h"
 
 namespace CalibrationScreen
 {
@@ -15,14 +14,19 @@ namespace CalibrationScreen
   
     GD.cmd_text(240, 15, 30, OPT_CENTER, "Calibrating, move all sticks");
     GD.cmd_text(240, 47, 30, OPT_CENTER, "to their extremes ...");
-  
+
+    int maxRes = 0;
+    int minRes = 0xFFF;
    
-    for(int i=0;i<channels.numberOfChannels();i++)
+    for(int i=0;i<adcChannels.numberOfChannels();i++)
     {
+      maxRes = max(maxRes, adcChannels.channel(i)->resolution());
+      minRes = min(minRes, adcChannels.channel(i)->resolution());
+      
         GD.cmd_progress( 10 + i*10, 136,
                         5, 126,
                         OPT_FLAT,
-                        channels.channel(i)->value()*1024.0f, 1024);
+                        adcChannels.channel(i)->value()*1024.0f, 1024);
                         
     }
 
@@ -36,7 +40,7 @@ namespace CalibrationScreen
     }
     
     if(!isDown && wasDown)
-      channels.enableCalibration(false);
+      adcChannels.enableCalibration(false);
     
     if(isDown != wasDown)
       wasDown = isDown;
@@ -45,6 +49,11 @@ namespace CalibrationScreen
     GD.cmd_button(240-35, 272-50, 70, 40, 28, isDown ? OPT_FLAT : 0, "Done");
 
 
+    char msg[128];
+    
+    sprintf(msg, "Res: %i=>%i", minRes, maxRes);
+    
+    GD.cmd_text(240, 100, 30, OPT_CENTER, msg);
 
 
   }  

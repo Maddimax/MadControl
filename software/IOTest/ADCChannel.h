@@ -3,7 +3,7 @@
 #include "LTC2309.h"
 
 
-class Channel
+class ADCChannel
 {
   struct {
     //! ADC Calibration
@@ -12,7 +12,7 @@ class Channel
   } _config;
   
 public:
-  Channel(LTC2309* ltc2309, byte id) 
+  ADCChannel(LTC2309* ltc2309, byte id) 
    : _ltc2309(ltc2309)
    , _id(id)
    , _doCalibration(false)
@@ -23,7 +23,8 @@ public:
   
   void update()
   {
-    LTC2309::Value v = _ltc2309->readUnipolarSingleEnded(_id);
+    LTC2309::Value v;
+    v = _ltc2309->readUnipolarSingleEnded(_id);
     
     if(_doCalibration)
     {
@@ -66,6 +67,11 @@ public:
     {
       *(pConfig+i) = EEPROM.read(startAddress+i);
     }
+  }
+  
+  int resolution()
+  {
+    return _config.maxCode - _config.minCode; 
   }
   
 protected:

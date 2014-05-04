@@ -4,24 +4,24 @@
 #include <SPI.h>
 #include <GD2.h>
 #include <Wire.h>
-#include "structs.h"
+
 #include <PinChangeInt.h>
 #include <PinChangeIntConfig.h>
 
 #include "TCA9535.h"
 #include "LTC2309.h"
 
-#include "Channel.h"
-#include "Channels.h"
+#include "powlut.h"
+
+#include "ADCChannel.h"
+#include "ADCChannels.h"
 
 const int kAddr9535 = 0x20;
 const int kAddr2309 = 0x08;
 
 TCA9535 digiIo(kAddr9535);
 LTC2309 analogIn(kAddr2309);
-Channels<3> channels(&analogIn);
-
-float powLUT[50];
+ADCChannels<3> adcChannels(&analogIn);
 
 #include "ExpoWidget.h"
 #include "MainScreen.h"
@@ -37,14 +37,7 @@ float powLUT[50];
 
 
 
-void setup() {
-  
-  for(int i=0;i<50;i++)
-  {
-    float x = (float)i/50.0;
-    powLUT[i] = pow(x, 3.0f);
-  }
-  
+void setup() { 
   // put your setup code here, to run once:  
   Serial.begin(115200);
   Wire.begin();
@@ -80,11 +73,11 @@ void loop() {
   lastTime = newTime;
   
   InterruptHelper::process(&digiIo);
-  channels.update();
+  adcChannels.update();
   
   GD.get_inputs();
   
-  if(channels.isCalibrating())
+  if(adcChannels.isCalibrating())
   {
     CalibrationScreen::loop();
   }

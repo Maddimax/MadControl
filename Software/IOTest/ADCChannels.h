@@ -1,20 +1,20 @@
 #pragma once
 
-#define CHANNEL_CALIBRATION_MAGIC 0xA0
+#define CHANNEL_CALIBRATION_MAGIC 0xA1
 
 
 template<byte numChannels>
-class Channels
+class ADCChannels
 {
 public:
-  Channels(LTC2309* ltc2309)
+  ADCChannels(LTC2309* ltc2309)
    : _ltc2309(ltc2309)  
   {
     _calibrated = (EEPROM.read(25) == CHANNEL_CALIBRATION_MAGIC);
     
     for(int i=0;i<numChannels;i++)
     {
-      _channel[i] = new Channel(_ltc2309, i);
+      _channel[i] = new ADCChannel(_ltc2309, i);
       if(_calibrated)
         _channel[i]->load();
     }
@@ -60,10 +60,10 @@ public:
   
   byte numberOfChannels() { return numChannels; }
   
-  Channel* channel(byte id) { return _channel[id]; }
+  ADCChannel* channel(byte id) { return _channel[id]; }
   
 protected:  
-  Channel* _channel[numChannels];
+  ADCChannel* _channel[numChannels];
   
   bool      _isCalibrating;
   bool     _calibrated;
