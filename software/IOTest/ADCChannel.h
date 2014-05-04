@@ -9,6 +9,7 @@ class ADCChannel
     //! ADC Calibration
     uint16_t minCode;
     uint16_t maxCode;
+    bool     invert;
   } _config;
   
 public:
@@ -19,6 +20,7 @@ public:
   {
     _config.minCode = 0xFFFF;
     _config.maxCode = 0x0000;
+    _config.invert = false;
   }
   
   void update()
@@ -37,9 +39,9 @@ public:
     _vOut = (float)(_adcCode - _config.minCode)/(float)(_config.maxCode - _config.minCode);
   }
   
-  float value()
+  float value() const
   {
-    return _vOut; 
+    return _config.invert ? 1.0-_vOut : _vOut; 
   }
   
   void enableCalibration(bool e)
@@ -47,7 +49,7 @@ public:
     _doCalibration = e;
   }
   
-  void save()
+  void save() const
   {
     int startAddress = 26 + (sizeof(_config)*_id);
     byte* pConfig = (byte*)&_config;    
@@ -69,7 +71,7 @@ public:
     }
   }
   
-  int resolution()
+  int resolution() const
   {
     return _config.maxCode - _config.minCode; 
   }

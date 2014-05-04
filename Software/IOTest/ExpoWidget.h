@@ -1,11 +1,12 @@
 #pragma once
 
 
-namespace ExpoWidget
+namespace ChannelWidget
 {
-  void draw(int x, int y, int w, int h, float expo, float v=0.0)
+  void draw(int x, int y, int w, int h, const InputChannels<NUM_INCHANNELS>& channels, byte channelId)
   {
     GD.ColorRGB(0x0);
+    GD.LineWidth(1 * 16);
     GD.Begin(RECTS);
     GD.Vertex2ii(x, y);
     GD.Vertex2ii(x+w, y+h);
@@ -19,18 +20,17 @@ namespace ExpoWidget
     for(int i=0;i<w;i+=3)
     {
       float xd = ((float)(i)/(float)w1);    
-      float yd = PowLut::unipolarInterpolatedPow3(xd, expo);
+      float yd = channels.mapValueForChannel(xd, channelId);
       
       GD.Vertex2f( (x+i)*16, ((float)h -((yd*(float)h)+(float)y))*16.0f);
     }
 
     GD.Vertex2f( w*16, 0*16.0f);
 
-    float yd = PowLut::unipolarInterpolatedPow3(v, expo);
-
+    float yd = channels.channelValue(channelId);
     
     GD.PointSize(16 * 5);
     GD.Begin(POINTS);
-    GD.Vertex2f(x + (v*(float)w)*16.0, (h-(y+ (yd*(float)h)))*16.0f);
+    GD.Vertex2f(x + (channels.channel(channelId)->adcValue()*(float)w)*16.0, (h-(y+ (yd*(float)h)))*16.0f);
   } 
 }

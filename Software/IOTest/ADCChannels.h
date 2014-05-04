@@ -1,6 +1,6 @@
 #pragma once
 
-#define CHANNEL_CALIBRATION_MAGIC 0xA1
+#define CHANNEL_CALIBRATION_MAGIC 0xA0
 
 
 template<byte numChannels>
@@ -31,7 +31,7 @@ public:
     }     
   }
   
-  void save()
+  void save() const
   {
     EEPROM.write(25, CHANNEL_CALIBRATION_MAGIC);
     for(int i=0;i<numChannels;i++)
@@ -53,14 +53,14 @@ public:
       save();  
   }
   
-  bool isCalibrating()
+  bool isCalibrating() const
   {
     return _isCalibrating; 
   }
   
-  byte numberOfChannels() { return numChannels; }
+  byte numberOfChannels() const { return numChannels; }
   
-  ADCChannel* channel(byte id) { return _channel[id]; }
+  ADCChannel* channel(byte id) const { return _channel[id]; }
   
 protected:  
   ADCChannel* _channel[numChannels];

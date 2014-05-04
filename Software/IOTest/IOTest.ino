@@ -13,17 +13,27 @@
 
 #include "powlut.h"
 
+#include "ExpoFilter.h"
+
 #include "ADCChannel.h"
 #include "ADCChannels.h"
+
+#include "InputChannel.h"
+#include "InputChannels.h"
 
 const int kAddr9535 = 0x20;
 const int kAddr2309 = 0x08;
 
+#define NUM_INCHANNELS 3
+
 TCA9535 digiIo(kAddr9535);
 LTC2309 analogIn(kAddr2309);
-ADCChannels<3> adcChannels(&analogIn);
+ADCChannels<NUM_INCHANNELS> adcChannels(&analogIn);
+
+InputChannels<NUM_INCHANNELS> inChannels;
 
 #include "ExpoWidget.h"
+#include "ChannelMeter.h"
 #include "MainScreen.h"
 #include "CalibrationScreen.h"
 
@@ -54,6 +64,8 @@ void setup() {
   
   InterruptHelper::begin(A15);
   
+  inChannels.channel(1)->setUnipolar(true);
+  
   GD.begin();
 }
 
@@ -74,6 +86,10 @@ void loop() {
   
   InterruptHelper::process(&digiIo);
   adcChannels.update();
+  inChannels.updateFromAdc(adcChannels);
+  
+  inChannels.globalExpo()->enable(true);
+  inChannels.globalExpo()->setExpoAmount( inChannels.channel(2)->value() );
   
   GD.get_inputs();
   
