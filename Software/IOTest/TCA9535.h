@@ -151,7 +151,7 @@ namespace InterruptHelper
     pinMode(pin, INPUT);
     digitalWrite(pin, HIGH);
 
-    PCintPort::attachInterrupt(pin, InterruptHelper::isr, CHANGE);       
+    //PCintPort::attachInterrupt(pin, InterruptHelper::isr, CHANGE);       
   }
   
   static bool wasTriggered()

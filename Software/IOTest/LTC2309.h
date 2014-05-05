@@ -28,9 +28,6 @@ public:
        byte b[2];
      } bytes;
     };
-#ifdef LTC2309_CALC_FLOAT
-    float floatValue;
-#endif
   };
   
 public:
@@ -39,16 +36,7 @@ public:
   {
   
   }
-#ifdef LTC2309_CALC_FLOAT
-  void calibrate(uint16_t minCode, uint16_t maxCode, float minVoltage, float maxVoltage)
-  {
-    float temp_offset;
-    _voltageScalar = (maxVoltage-minVoltage)/((float)(maxCode - minCode)); //! 1) Calculate the LSB
-    temp_offset = (minVoltage/ _voltageScalar) - minCode;                                               //! 2) Calculate Unipolar offset
-    temp_offset = (temp_offset > (floor(temp_offset) + 0.5)) ? ceil(temp_offset) : floor(temp_offset);    //! 3) Round
-    _voltageOffsetCode = (int32_t)temp_offset;                                                          //! 4) Cast as int32_t    
-  }
-#endif
+
   
   Value readUnipolarSingleEnded(byte channel)
   {    
@@ -86,9 +74,4 @@ public:
 
 protected:
   uint8_t _adress;
-#ifdef LTC2309_CALC_FLOAT
-  float _voltageScalar;
-  int16_t _voltageOffsetCode;
-#endif  
-  
 };

@@ -22,7 +22,7 @@ namespace PowLut
     return e + (1.0-expoStrength)*x;  
   }
   
-  float unipolarInterpolatedPow3(float x, float expoStrength)
+  float bipolarInterpolatedPow3(float x, float expoStrength)
   {
     return ((interpolatedPow3(x*2.0-1.0, expoStrength))+1.0)/2.0;
   }

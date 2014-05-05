@@ -7,6 +7,7 @@ class InputChannels
   InputChannel* _channel[kNumChannels];
   
   ExpoFilter _globalExpo;
+  LinearFilter _globalLinear;
   
 public:
   InputChannels()
@@ -25,15 +26,16 @@ public:
   float mapValueForChannel(float v, byte id) const
   {
     float result = v;
-    result = _globalExpo.map(result, _channel[id]->isUnipolar());
+    result = _globalExpo.map(result, _channel[id]->isBipolar());
     result = _channel[id]->map(result);
+    result = _globalLinear.map(result, _channel[id]->isBipolar());
     return result;
   }
   
   float channelValue(byte id) const
   {
     float result = _channel[id]->adcValue();
-    result = _globalExpo.map(result, _channel[id]->isUnipolar());
+    result = _globalExpo.map(result, _channel[id]->isBipolar());
     result = _channel[id]->map(result);
     
     return result;

@@ -1,65 +1,17 @@
 #pragma once
 
-class FivePointCurveFilter
-{
-public:
-  struct {
-    float points[5];
-    bool enabled;
-  } _config;
-  
-  FivePointCurveFilter()
-  {
-    reset();
-  }
-  
-  void reset()
-  {
-    _config.points[0] = 0.0f;
-    _config.points[1] = 0.25f;
-    _config.points[2] = 0.5f;
-    _config.points[3] = 0.75f;
-    _config.points[4] = 1.0f;
-    
-    _config.enabled = false;
-  }
-  
-  float map(float v) const
-  {
-    if(_config.enabled == false)
-      return v;
-      
-    if(v < 0.25f)
-    {
-      float x = v*4.0f; // Bring it to 0->1
-      return (_config.points[1] - _config.points[0]) * x + _config.points[0];
-    }
-    else if(v < 0.5f)
-    {
-      float x = (v-0.25f)*4.0f; // Bring it to 0->1
-      return (_config.points[2] - _config.points[1]) * x + _config.points[1];
-    }
-    else if(v < 0.75f)
-    {
-      float x = (v-0.5f)*4.0f; // Bring it to 0->1
-      return (_config.points[3] - _config.points[2]) * x + _config.points[2];
-    }
-
-    float x = (v-0.75f)*4.0f; // Bring it to 0->1
-    return (_config.points[4] - _config.points[3]) * x + _config.points[3];
-  }
-};
 
 class InputChannel
 {
-  FivePointCurveFilter _pointCurveFilter;
-  ExpoFilter _expoFilter;
+  PointCurveFilter<POINT_CURVE_FILTER_NUM_POINTS> _pointCurveFilter;
+  ExpoFilter                                      _expoFilter;
+  LinearFilter                                    _linearFilter;
   
   float _currentValue;
   float _adcValue;
   
   struct {
-    bool unipolar;
+    bool bipolar;
   } _config;
   
 public:  
@@ -71,7 +23,7 @@ public:
   
   void reset()
   {
-    _config.unipolar = false;
+    _config.bipolar = false;
     _expoFilter.reset();
     _pointCurveFilter.reset();
   }
@@ -79,20 +31,21 @@ public:
   float map(float v) const
   {
     float result = v;
-    result = _expoFilter.map(result, _config.unipolar);
+    result = _expoFilter.map(result, _config.bipolar);
     result = _pointCurveFilter.map(result);
+    result = _linearFilter.map(result, _config.bipolar);
     
     return result;
   }
   
-  void setUnipolar(bool unipolar)
+  void setBipolar(bool bipolar)
   {
-    _config.unipolar = unipolar;  
+    _config.bipolar = bipolar;  
   }
   
-  bool isUnipolar() 
+  bool isBipolar() 
   {
-    return _config.unipolar;  
+    return _config.bipolar;  
   }
   
   void setADCValue(float adcValue)

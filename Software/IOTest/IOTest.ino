@@ -1,4 +1,4 @@
-//#define LTC2309_CALC_FLOAT
+#define POINT_CURVE_FILTER_NUM_POINTS 5
 
 #include <EEPROM.h>
 #include <SPI.h>
@@ -14,6 +14,8 @@
 #include "powlut.h"
 
 #include "ExpoFilter.h"
+#include "PointCurveFilter.h"
+#include "LinearFilter.h"
 
 #include "ADCChannel.h"
 #include "ADCChannels.h"
@@ -32,8 +34,9 @@ ADCChannels<NUM_INCHANNELS> adcChannels(&analogIn);
 
 InputChannels<NUM_INCHANNELS> inChannels;
 
-#include "ExpoWidget.h"
+#include "ChannelWidget.h"
 #include "ChannelMeter.h"
+
 #include "MainScreen.h"
 #include "CalibrationScreen.h"
 
@@ -64,7 +67,7 @@ void setup() {
   
   InterruptHelper::begin(A15);
   
-  inChannels.channel(1)->setUnipolar(true);
+  inChannels.channel(1)->setBipolar(true);
   
   GD.begin();
 }

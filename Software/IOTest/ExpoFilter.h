@@ -29,13 +29,13 @@ public:
     _config.expoAmount = expoAmount; 
   }
   
-  float map(float v, bool unipolar) const
+  float map(float v, bool bipolar) const
   {
     if(!_config.enabled)
       return v;
     
-    if(unipolar)
-      return PowLut::unipolarInterpolatedPow3(v, _config.expoAmount);
+    if(bipolar)
+      return PowLut::bipolarInterpolatedPow3(v, _config.expoAmount);
 
     return PowLut::interpolatedPow3(v, _config.expoAmount);
   }

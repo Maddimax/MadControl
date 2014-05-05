@@ -20,7 +20,7 @@ namespace ChannelMeter
     
     GD.Begin(LINES);
     
-    if(channels.channel(channelId)->isUnipolar())
+    if(channels.channel(channelId)->isBipolar())
     {
       if(vh < h/2)
       {
@@ -45,7 +45,7 @@ namespace ChannelMeter
     GD.LineWidth((w-5)/2 * 16);
     GD.Begin(LINES);
     
-    if(channels.channel(channelId)->isUnipolar())
+    if(channels.channel(channelId)->isBipolar())
     {
       if(vAh < h/2)
       {
