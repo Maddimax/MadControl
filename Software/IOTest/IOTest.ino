@@ -1,5 +1,3 @@
-#define POINT_CURVE_FILTER_NUM_POINTS 5
-
 #include <EEPROM.h>
 #include <SPI.h>
 #include <GD2.h>
@@ -13,29 +11,54 @@
 
 #include "powlut.h"
 
+#include "Color.h"
+
+
 #include "ExpoFilter.h"
 #include "PointCurveFilter.h"
 #include "LinearFilter.h"
 
+const int kAddr9535 = 0x20;
+const int kAddr2309 = 0x08;
+
+#define NUM_INCHANNELS 5
+#define CHANNEL_CALIBRATION_MAGIC NUM_INCHANNELS + 0xA0
+#define POINT_CURVE_FILTER_NUM_POINTS 7
+
+
 #include "ADCChannel.h"
 #include "ADCChannels.h"
+
 
 #include "InputChannel.h"
 #include "InputChannels.h"
 
-const int kAddr9535 = 0x20;
-const int kAddr2309 = 0x08;
 
-#define NUM_INCHANNELS 3
 
 TCA9535 digiIo(kAddr9535);
 LTC2309 analogIn(kAddr2309);
-ADCChannels<NUM_INCHANNELS> adcChannels(&analogIn);
 
-InputChannels<NUM_INCHANNELS> inChannels;
+TADCChannels adcChannels(&analogIn);
+TInputChannels inChannels;
+
+
+
+struct Palette
+{
+  Color bgColor;
+  Color text;
+};
+
+Palette palette = { 
+  Color( 128, 128, 128, 255 ),
+  Color( 255, 255, 255, 255 )
+};
+
 
 #include "ChannelWidget.h"
 #include "ChannelMeter.h"
+#include "XYWidget.h"
+#include "Button.h"
 
 #include "MainScreen.h"
 #include "CalibrationScreen.h"
@@ -51,6 +74,7 @@ InputChannels<NUM_INCHANNELS> inChannels;
 
 
 void setup() { 
+  
   // put your setup code here, to run once:  
   Serial.begin(115200);
   Wire.begin();
@@ -66,8 +90,22 @@ void setup() {
   digiIo.writeConfiguration();
   
   InterruptHelper::begin(A15);
-  
-  inChannels.channel(1)->setBipolar(true);
+
+  for(int i=1;i<4;i++)
+  {  
+    inChannels.channel(i)->setBipolar(true);
+    inChannels.channel(i)->expoFilter()->setEnabled(true);
+    inChannels.channel(i)->expoFilter()->setAmount(0.5);
+  }
+
+  inChannels.channel(2)->expoFilter()->setEnabled(false);
+  inChannels.channel(2)->pointCurveFilter()->setEnabled(true);
+  inChannels.channel(2)->pointCurveFilter()->setPoint(0, 0.1);
+  inChannels.channel(2)->pointCurveFilter()->setPoint(1, 0.25);
+  inChannels.channel(2)->pointCurveFilter()->setPoint(2, 0.7);
+  inChannels.channel(2)->pointCurveFilter()->setPoint(3, 0.8);
+  inChannels.channel(2)->pointCurveFilter()->setPoint(4, 0.9);
+
   
   GD.begin();
 }
@@ -91,8 +129,8 @@ void loop() {
   adcChannels.update();
   inChannels.updateFromAdc(adcChannels);
   
-  inChannels.globalExpo()->enable(true);
-  inChannels.globalExpo()->setExpoAmount( inChannels.channel(2)->value() );
+  inChannels.globalExpo()->setEnabled(true);
+  inChannels.globalExpo()->setAmount( inChannels.channel(4)->value() );
   
   GD.get_inputs();
   
@@ -108,71 +146,14 @@ void loop() {
     }
   }
   
+  palette.text.apply();
   GD.cmd_number(480-30,0, 26, 0, 1000.0/dur);
 
 
   GD.swap();
   
   
-/*  char p1Msg[20];
-  char p2Msg[20];
-  char p3Msg[20];
 
-
- 
-  
-  sprintf(p1Msg, "Port 0: %i%i%i%i%i%i%i%i", 
-               digiIo.in(0).pins.pin0==1,
-               digiIo.in(0).pins.pin1==1,
-               digiIo.in(0).pins.pin2==1,
-               digiIo.in(0).pins.pin3==1,
-               digiIo.in(0).pins.pin4==1,
-               digiIo.in(0).pins.pin5==1,
-               digiIo.in(0).pins.pin6==1,
-               digiIo.in(0).pins.pin7==1
-               );
-  sprintf(p2Msg, "Port 1: %i%i%i%i%i%i%i%i", 
-               digiIo.in(1).pins.pin0==1,
-               digiIo.in(1).pins.pin1==1,
-               digiIo.in(1).pins.pin2==1,
-               digiIo.in(1).pins.pin3==1,
-               digiIo.in(1).pins.pin4==1,
-               digiIo.in(1).pins.pin5==1,
-               digiIo.in(1).pins.pin6==1,
-               digiIo.in(1).pins.pin7==1
-               );
-  // 480x272
- 
-  char msg[20];
-  
-  sprintf(msg, "%i: %i", i, InterruptHelper::dbgChangeCount());
-
-  GD.get_inputs();
-  
-  // put your main code here, to run repeatedly:
-  GD.cmd_gradient(0, 0,   0, 480, 480, 0x7F7F7F);
-   
-  
-  GD.ColorRGB(0xFFFFFF);
-  GD.Tag(255);
-  GD.cmd_text(0, 30, 30, 0, p1Msg);
-  GD.cmd_text(0, 62, 30, 0, p2Msg);
-  GD.cmd_text(0, 94, 30, 0, p3Msg);
-  GD.cmd_text(0, 126, 30, 0, msg);
-  
-  
-  GD.Begin(RECTS);
-  GD.Vertex2ii(480-100, 0);
-  GD.Vertex2ii(480, 100);
-/*
-  int x = (int)(v0.floatValue*100.0f);
-  int y = (int)(v1.floatValue*100.0f);
-
-  GD.ColorRGB(0);
-  GD.PointSize(16*5);
-  GD.Begin(POINTS);
-  GD.Vertex2ii(y+(480-100), x);
-  */  
   
   
   i++;

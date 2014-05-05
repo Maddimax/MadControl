@@ -3,9 +3,9 @@
 
 namespace ChannelMeter
 {
-  void draw(int x, int y, int w, int h, const InputChannels<NUM_INCHANNELS>& channels, byte channelId)
+  void draw(int x, int y, int w, int h, const TInputChannels& channels, byte channelId)
   {
-    GD.ColorRGB(0x000000);
+    palette.bgColor.apply();
     GD.LineWidth(w/2 * 16);
     GD.Begin(LINES);
     GD.Vertex2ii(x+w/2, y);

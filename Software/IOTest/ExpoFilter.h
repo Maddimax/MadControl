@@ -7,7 +7,7 @@ public:
     bool enabled;
     float expoAmount;
   } _config;
-
+  
   ExpoFilter()
   {
     reset();   
@@ -19,12 +19,12 @@ public:
     _config.expoAmount = 0.0f;
   }
   
-  void enable(bool enable)
+  void setEnabled(bool enable)
   {
     _config.enabled = enable; 
   }
   
-  void setExpoAmount(float expoAmount)
+  void setAmount(float expoAmount)
   {
     _config.expoAmount = expoAmount; 
   }
@@ -36,7 +36,7 @@ public:
     
     if(bipolar)
       return PowLut::bipolarInterpolatedPow3(v, _config.expoAmount);
-
-    return PowLut::interpolatedPow3(v, _config.expoAmount);
+    else
+      return PowLut::interpolatedPow3(v, _config.expoAmount);
   }
 };

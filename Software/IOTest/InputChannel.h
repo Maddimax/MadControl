@@ -28,6 +28,10 @@ public:
     _pointCurveFilter.reset();
   }
   
+  PointCurveFilter<POINT_CURVE_FILTER_NUM_POINTS>* pointCurveFilter() { return &_pointCurveFilter; }
+  ExpoFilter* expoFilter() { return &_expoFilter; }
+  LinearFilter* linearFilter() { return &_linearFilter; }
+  
   float map(float v) const
   {
     float result = v;

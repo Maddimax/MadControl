@@ -39,12 +39,12 @@ public:
     if(bipolar)
     {
       v = v * 2.0f - 1.0f;
-      v *= _config.amount;
+      v *= 1.0-_config.amount;
       v = (v + 1.0f) / 2.0f;
 
       return v;
     }
 
-    return v*_config.amount;
+    return v*(1.0-_config.amount);
   }
 };

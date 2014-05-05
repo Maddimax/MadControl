@@ -18,9 +18,14 @@ public:
    , _id(id)
    , _doCalibration(false)
   {
+    reset();
+    _config.invert = false;
+  }
+  
+  void reset()
+  {
     _config.minCode = 0xFFFF;
     _config.maxCode = 0x0000;
-    _config.invert = false;
   }
   
   void update()
@@ -46,6 +51,9 @@ public:
   
   void enableCalibration(bool e)
   {
+    if(e)
+      reset();
+      
     _doCalibration = e;
   }
   

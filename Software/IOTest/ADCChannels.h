@@ -1,7 +1,5 @@
 #pragma once
 
-#define CHANNEL_CALIBRATION_MAGIC 0xA0
-
 
 template<byte numChannels>
 class ADCChannels
@@ -69,3 +67,6 @@ protected:
   bool     _calibrated;
   LTC2309* _ltc2309;
 };
+
+typedef ADCChannels<NUM_INCHANNELS> TADCChannels;
+
