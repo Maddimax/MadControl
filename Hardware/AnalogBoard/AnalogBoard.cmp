@@ -1,0 +1,80 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 11/05/2014 15:21:03
+
+BeginCmp
+TimeStamp = /536F7B09;
+Reference = P1;
+ValeurCmp = CONN_4;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77E7;
+Reference = P2;
+ValeurCmp = ACH67;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77E8;
+Reference = P3;
+ValeurCmp = ACH45;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77E9;
+Reference = P4;
+ValeurCmp = ACH23;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77EA;
+Reference = P5;
+ValeurCmp = ACH01;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77E6;
+Reference = U1;
+ValeurCmp = 10uf;
+IdModule  = SM1210;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F7800;
+Reference = U2;
+ValeurCmp = 0.1uf;
+IdModule  = SM1812;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F7802;
+Reference = U3;
+ValeurCmp = 0.1uf;
+IdModule  = SM1812;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F7801;
+Reference = U4;
+ValeurCmp = 10uf;
+IdModule  = SM1210;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F77E4;
+Reference = U5;
+ValeurCmp = LTC2309;
+IdModule  = tssop-20;
+EndCmp
+
+BeginCmp
+TimeStamp = /536F7803;
+Reference = U6;
+ValeurCmp = 2.2uf;
+IdModule  = SM1210;
+EndCmp
+
+EndListe
