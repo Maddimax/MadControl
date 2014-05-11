@@ -33,15 +33,11 @@ const int kAddr2309 = 0x08;
 #include "InputChannel.h"
 #include "InputChannels.h"
 
-
-
 TCA9535 digiIo(kAddr9535);
 LTC2309 analogIn(kAddr2309);
 
 TADCChannels adcChannels(&analogIn);
 TInputChannels inChannels;
-
-
 
 struct Palette
 {
@@ -49,7 +45,7 @@ struct Palette
   Color text;
 };
 
-Palette palette = { 
+Palette palette = {
   Color( 128, 128, 128, 255 ),
   Color( 255, 255, 255, 255 )
 };
@@ -71,14 +67,12 @@ Palette palette = {
 // 25 => 0xA0 if channels are calibrated
 // 26-xx => Channel data
 
+void setup() {
 
-
-void setup() { 
-  
-  // put your setup code here, to run once:  
+  // put your setup code here, to run once:
   Serial.begin(115200);
   Wire.begin();
-  
+
 #ifdef LTC2309_CALC_FLOAT
   analogIn.calibrate(0x64A, 0xa9F, 0.0, 1.0);
 #endif
@@ -88,11 +82,11 @@ void setup() {
   digiIo.configuration(0).value = 0x00;
   digiIo.configuration(1).value = 0x01;
   digiIo.writeConfiguration();
-  
+
   InterruptHelper::begin(A15);
 
   for(int i=1;i<4;i++)
-  {  
+  {
     inChannels.channel(i)->setBipolar(true);
     inChannels.channel(i)->expoFilter()->setEnabled(true);
     inChannels.channel(i)->expoFilter()->setAmount(0.5);
@@ -106,13 +100,13 @@ void setup() {
   inChannels.channel(2)->pointCurveFilter()->setPoint(3, 0.8);
   inChannels.channel(2)->pointCurveFilter()->setPoint(4, 0.9);
 
-  
+
   GD.begin();
 }
 
 int i=0;
 
-uint16_t s_currentScreen = 0; 
+uint16_t s_currentScreen = 0;
 float dur = 0.0f;
 
 unsigned long lastTime = millis();
@@ -120,20 +114,20 @@ unsigned long lastTime = millis();
 void loop() {
 
   unsigned long newTime = millis();
-  
+
   dur = (dur*0.9f) + ((float)(newTime - lastTime)*0.1f);
-  
+
   lastTime = newTime;
-  
+
   InterruptHelper::process(&digiIo);
   adcChannels.update();
   inChannels.updateFromAdc(adcChannels);
-  
+
   inChannels.globalExpo()->setEnabled(true);
   inChannels.globalExpo()->setAmount( inChannels.channel(4)->value() );
-  
+
   GD.get_inputs();
-  
+
   if(adcChannels.isCalibrating())
   {
     CalibrationScreen::loop();
@@ -142,21 +136,17 @@ void loop() {
   {
     if(s_currentScreen == 0)
     {
-      MainScreen::loop();  
+      MainScreen::loop();
     }
   }
-  
+
   palette.text.apply();
   GD.cmd_number(480-30,0, 26, 0, 1000.0/dur);
 
 
   GD.swap();
-  
-  
 
-  
-  
   i++;
-  
-  
+
+
 }
