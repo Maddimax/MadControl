@@ -879,4 +879,68 @@ Wire Wire Line
 Connection ~ 8100 1900
 Text GLabel 9050 2600 2    60   Input ~ 0
 GND
+$Comp
+L CONN_3 K1
+U 1 1 536F292E
+P 2800 7150
+F 0 "K1" V 2750 7150 50  0000 C CNN
+F 1 "PPM_OUT" V 2850 7150 40  0000 C CNN
+F 2 "" H 2800 7150 60  0000 C CNN
+F 3 "" H 2800 7150 60  0000 C CNN
+	1    2800 7150
+	0    1    1    0   
+$EndComp
+Text GLabel 2700 6800 1    60   Input ~ 0
+PPM
+Text GLabel 2800 6800 1    60   Input ~ 0
+VIN
+Text GLabel 2900 6800 1    60   Input ~ 0
+GND
+Text GLabel 5850 1450 2    60   Input ~ 0
+PPM
+$Comp
+L CONN_2 P7
+U 1 1 536F2B46
+P 1700 7150
+F 0 "P7" V 1650 7150 40  0000 C CNN
+F 1 "Vinput" V 1750 7150 40  0000 C CNN
+F 2 "" H 1700 7150 60  0000 C CNN
+F 3 "" H 1700 7150 60  0000 C CNN
+	1    1700 7150
+	0    1    1    0   
+$EndComp
+Text GLabel 1800 6800 1    60   Input ~ 0
+GND
+Text GLabel 1600 6800 1    60   Input ~ 0
+VIN
+Text GLabel 3950 3850 0    60   Input ~ 0
+Vsense
+$Comp
+L R R1
+U 1 1 536F2BA6
+P 1750 5400
+F 0 "R1" V 1830 5400 40  0000 C CNN
+F 1 "10k" V 1757 5401 40  0000 C CNN
+F 2 "~" V 1680 5400 30  0000 C CNN
+F 3 "~" H 1750 5400 30  0000 C CNN
+	1    1750 5400
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R19
+U 1 1 536F2BAD
+P 1750 5900
+F 0 "R19" V 1830 5900 40  0000 C CNN
+F 1 "10k" V 1757 5901 40  0000 C CNN
+F 2 "~" V 1680 5900 30  0000 C CNN
+F 3 "~" H 1750 5900 30  0000 C CNN
+	1    1750 5900
+	-1   0    0    1   
+$EndComp
+Text GLabel 1750 5650 0    60   Input ~ 0
+Vsense
+Text GLabel 1750 6150 3    60   Input ~ 0
+GND
+Text GLabel 1750 5150 1    60   Input ~ 0
+VIN
 $EndSCHEMATC

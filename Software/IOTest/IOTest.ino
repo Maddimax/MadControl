@@ -22,9 +22,19 @@ const int kAddr9535 = 0x20;
 const int kAddr2309 = 0x08;
 
 #define NUM_INCHANNELS 5
+#define NUM_TX_CHANNELS 8
+
+#define PPM_OUT_PIN 13
+#define PPM_MIN_VALUE 1000
+#define PPM_MAX_VALUE 2024
+
+#define VSENSE_PIN A14
+
 #define CHANNEL_CALIBRATION_MAGIC NUM_INCHANNELS + 0xA0
 #define POINT_CURVE_FILTER_NUM_POINTS 7
 
+#include "PPMGen.h"
+#include "Vsense.h"
 
 #include "ADCChannel.h"
 #include "ADCChannels.h"
@@ -72,6 +82,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Wire.begin();
+  
+  PPMGen::begin();
 
 #ifdef LTC2309_CALC_FLOAT
   analogIn.calibrate(0x64A, 0xa9F, 0.0, 1.0);
@@ -125,6 +137,9 @@ void loop() {
 
   inChannels.globalExpo()->setEnabled(true);
   inChannels.globalExpo()->setAmount( inChannels.channel(4)->value() );
+  
+  
+  PPMGen::setPPMValue(1, inChannels.channelValue(0));
 
   GD.get_inputs();
 
@@ -142,7 +157,18 @@ void loop() {
 
   palette.text.apply();
   GD.cmd_number(480-30,0, 26, 0, 1000.0/dur);
-
+  
+  char vMsg[20];
+  
+  float volts = Vsense::getInputVoltage();
+  
+  int i = floor(volts);
+  volts -= (float)i;
+  int r = (int)(volts*10.0f);
+  
+  sprintf(vMsg, "%i.%iv", i, r);
+  
+  GD.cmd_text(480-30, 32, 26, 0, vMsg);
 
   GD.swap();
 
