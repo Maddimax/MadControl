@@ -558,7 +558,11 @@ Wire Wire Line
 	6600 1050 6600 3000
 Wire Wire Line
 	6600 1500 6900 1500
+Wire Wire Line
+	6850 3100 7800 3100
 Connection ~ 6850 1300
+Wire Wire Line
+	6600 3000 7800 3000
 Connection ~ 6600 1500
 Wire Wire Line
 	7700 4700 7950 4700
@@ -939,8 +943,4 @@ Text GLabel 1750 6150 3    60   Input ~ 0
 GND
 Text GLabel 1750 5150 1    60   Input ~ 0
 VIN
-Wire Wire Line
-	6850 3100 7800 3100
-Wire Wire Line
-	6600 3000 7800 3000
 $EndSCHEMATC

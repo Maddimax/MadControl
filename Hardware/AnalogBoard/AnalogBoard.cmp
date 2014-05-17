@@ -1,38 +1,38 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 11/05/2014 15:21:03
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 17/05/2014 08:29:32
 
 BeginCmp
 TimeStamp = /536F7B09;
 Reference = P1;
 ValeurCmp = CONN_4;
-IdModule  = PIN_ARRAY_4x1;
+IdModule  = PIN_ARRAY_4x1_MIXED_INV;
 EndCmp
 
 BeginCmp
 TimeStamp = /536F77E7;
 Reference = P2;
 ValeurCmp = ACH67;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_ARRAY-6X1_MIXED;
 EndCmp
 
 BeginCmp
 TimeStamp = /536F77E8;
 Reference = P3;
 ValeurCmp = ACH45;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_ARRAY-6X1_MIXED;
 EndCmp
 
 BeginCmp
 TimeStamp = /536F77E9;
 Reference = P4;
 ValeurCmp = ACH23;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_ARRAY-6X1_MIXED;
 EndCmp
 
 BeginCmp
 TimeStamp = /536F77EA;
 Reference = P5;
 ValeurCmp = ACH01;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_ARRAY-6X1_MIXED;
 EndCmp
 
 BeginCmp

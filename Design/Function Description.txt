@@ -1,0 +1,56 @@
+Screen:
+	- 480x272
+	- 32 bit ( 24 + 8 alpha )
+
+Setup
+- Calibrate
+- Global Curves
+	- Expo Display
+		- Amount
+	- Linear Display
+		- Amount
+	- Affected Channel checkboxes
+
+- Analog InputChannels
+	- Channel (x8)
+		- Curves
+			- Expo
+			- Linear
+			- 7-point
+			- Result curve
+		- Destination ( Output Channel / Function )
+			- Liste
+		- Settings
+			- Bipolar / Unipolar
+- Digital Input Channels
+	- Channel (16)
+		- Push/Switch - Button
+
+- Macros
+	- User mappings ( 8 )
+		- Function Select: ( Liste )
+			* Output channel ( 0-1024 )
+				- Switch select
+					- + Switch ( Select 0-16 )
+					- - Switch ( Select 0-16 )
+				- Num Values
+					- Values
+
+			* Trim(n) ( 0-1024 )
+				- Switch select
+					- + Switch ( Select 0-16 )
+					- - Switch ( Select 0-16 )
+
+
+			* Throttle Hold ( 0/1 )
+				- Select Switch ( radio )
+				- If button == Push
+					* Hold / Toggle
+				- If Button == Switch
+					* -
+
+
+- Output Channels ( 8+ )
+	- Channel
+		- Min/Max Werte
+
