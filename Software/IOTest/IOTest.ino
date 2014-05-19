@@ -24,6 +24,17 @@ const int kAddr2309 = 0x08;
 #define NUM_INCHANNELS 5
 #define NUM_TX_CHANNELS 8
 
+byte adcChannelRemap[8] = {
+  4,
+  5,
+  6, 
+  7,
+  1,
+  0,
+  2,
+  3
+};
+
 #define PPM_OUT_PIN 13
 #define PPM_MIN_VALUE 1000
 #define PPM_MAX_VALUE 2024
@@ -81,9 +92,10 @@ void setup() {
 
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Wire.begin();
   
   PPMGen::begin();
+
+  Wire.begin();
 
 #ifdef LTC2309_CALC_FLOAT
   analogIn.calibrate(0x64A, 0xa9F, 0.0, 1.0);
@@ -91,9 +103,9 @@ void setup() {
 
   digiIo.begin();
 
-  digiIo.configuration(0).value = 0x00;
-  digiIo.configuration(1).value = 0x01;
-  digiIo.writeConfiguration();
+  //digiIo.configuration(0).value = 0x00;
+  //digiIo.configuration(1).value = 0x01;
+  //digiIo.writeConfiguration();
 
   InterruptHelper::begin(A15);
 

@@ -31,7 +31,7 @@ public:
   void update()
   {
     LTC2309::Value v;
-    v = _ltc2309->readUnipolarSingleEnded(_id);
+    v = _ltc2309->readUnipolarSingleEnded(adcChannelRemap[_id]);
     
     if(_doCalibration)
     {

@@ -30,13 +30,14 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:arduino_shieldsNCL
+LIBS:RCShield-Mod-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "12 may 2014"
+Date "18 may 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -350,4 +351,19 @@ F 3 "~" H 950 6800 60  0000 C CNN
 	1    950  6800
 	0    1    1    0   
 $EndComp
+$Comp
+L CP1 C1
+U 1 1 5378EA9A
+P 7500 2750
+F 0 "C1" H 7550 2850 50  0000 L CNN
+F 1 "220uF" H 7550 2650 50  0000 L CNN
+F 2 "~" H 7500 2750 60  0000 C CNN
+F 3 "~" H 7500 2750 60  0000 C CNN
+	1    7500 2750
+	0    -1   -1   0   
+$EndComp
+Text GLabel 7300 2750 0    60   Input ~ 0
++5V
+Text GLabel 7700 2750 2    60   Input ~ 0
+GND
 $EndSCHEMATC
