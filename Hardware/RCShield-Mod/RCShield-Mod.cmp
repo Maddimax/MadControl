@@ -1,8 +1,15 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 18/05/2014 19:16:40
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 08/06/2014 20:29:55
 
 BeginCmp
 TimeStamp = /5378EA9A;
 Reference = C1;
+ValeurCmp = 1000uF;
+IdModule  = C1V5H;
+EndCmp
+
+BeginCmp
+TimeStamp = /5394ABBB;
+Reference = C2;
 ValeurCmp = 220uF;
 IdModule  = C1V5H;
 EndCmp
@@ -10,13 +17,6 @@ EndCmp
 BeginCmp
 TimeStamp = /5371403C;
 Reference = D1;
-ValeurCmp = DIODE;
-IdModule  = DO-214AC(SMA);
-EndCmp
-
-BeginCmp
-TimeStamp = /53714072;
-Reference = D2;
 ValeurCmp = DIODE;
 IdModule  = DO-214AC(SMA);
 EndCmp
@@ -40,6 +40,13 @@ TimeStamp = /5370F769;
 Reference = P2;
 ValeurCmp = DIGI_EXT;
 IdModule  = PIN_ARRAY_5x1_MIXED3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5394A61C;
+Reference = P3;
+ValeurCmp = Vswitch;
+IdModule  = PIN_ARRAY_2X1_BIG;
 EndCmp
 
 BeginCmp

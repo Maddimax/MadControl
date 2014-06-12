@@ -1,3 +1,5 @@
+#define VERBOSE 1
+
 #include <EEPROM.h>
 #include <SPI.h>
 #include <GD2.h>
@@ -54,7 +56,7 @@ byte adcChannelRemap[8] = {
 #include "InputChannel.h"
 #include "InputChannels.h"
 
-TCA9535 digiIo(kAddr9535);
+//TCA9535 digiIo(kAddr9535);
 LTC2309 analogIn(kAddr2309);
 
 TADCChannels adcChannels(&analogIn);
@@ -101,13 +103,13 @@ void setup() {
   analogIn.calibrate(0x64A, 0xa9F, 0.0, 1.0);
 #endif
 
-  digiIo.begin();
+  //digiIo.begin();
 
   //digiIo.configuration(0).value = 0x00;
   //digiIo.configuration(1).value = 0x01;
   //digiIo.writeConfiguration();
 
-  InterruptHelper::begin(A15);
+  //InterruptHelper::begin(A15);
 
   for(int i=1;i<4;i++)
   {
@@ -143,7 +145,7 @@ void loop() {
 
   lastTime = newTime;
 
-  InterruptHelper::process(&digiIo);
+  //InterruptHelper::process(&digiIo);
   adcChannels.update();
   inChannels.updateFromAdc(adcChannels);
 
@@ -151,7 +153,7 @@ void loop() {
   inChannels.globalExpo()->setAmount( inChannels.channel(4)->value() );
   
   
-  PPMGen::setPPMValue(1, inChannels.channelValue(0));
+  PPMGen::setPPMValue(1, 0.5f);//inChannels.channelValue(0));
 
   GD.get_inputs();
 
@@ -185,6 +187,7 @@ void loop() {
   GD.swap();
 
   i++;
+  
 
 
 }

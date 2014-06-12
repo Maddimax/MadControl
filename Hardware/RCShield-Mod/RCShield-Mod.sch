@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "18 may 2014"
+Date "8 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -198,66 +198,66 @@ Wire Wire Line
 $Comp
 L CONN_3 K1
 U 1 1 536F292E
-P 2800 7150
-F 0 "K1" V 2750 7150 50  0000 C CNN
-F 1 "PPM_OUT" V 2850 7150 40  0000 C CNN
-F 2 "" H 2800 7150 60  0000 C CNN
-F 3 "" H 2800 7150 60  0000 C CNN
-	1    2800 7150
+P 2300 7350
+F 0 "K1" V 2250 7350 50  0000 C CNN
+F 1 "PPM_OUT" V 2350 7350 40  0000 C CNN
+F 2 "" H 2300 7350 60  0000 C CNN
+F 3 "" H 2300 7350 60  0000 C CNN
+	1    2300 7350
 	0    1    1    0   
 $EndComp
-Text GLabel 2700 6800 1    60   Input ~ 0
+Text GLabel 2200 7000 1    60   Input ~ 0
 PPM
-Text GLabel 2800 6800 1    60   Input ~ 0
+Text GLabel 2300 7000 1    60   Input ~ 0
 VIN
-Text GLabel 2900 6800 1    60   Input ~ 0
+Text GLabel 2400 7000 1    60   Input ~ 0
 GND
 Text GLabel 5850 1450 2    60   Input ~ 0
 PPM
 $Comp
 L CONN_2 P7
 U 1 1 536F2B46
-P 850 7350
-F 0 "P7" V 800 7350 40  0000 C CNN
-F 1 "Vinput" V 900 7350 40  0000 C CNN
-F 2 "" H 850 7350 60  0000 C CNN
-F 3 "" H 850 7350 60  0000 C CNN
-	1    850  7350
+P 1250 7350
+F 0 "P7" V 1200 7350 40  0000 C CNN
+F 1 "Vinput" V 1300 7350 40  0000 C CNN
+F 2 "" H 1250 7350 60  0000 C CNN
+F 3 "" H 1250 7350 60  0000 C CNN
+	1    1250 7350
 	0    1    1    0   
 $EndComp
-Text GLabel 950  6600 1    60   Input ~ 0
+Text GLabel 1350 7000 1    60   Input ~ 0
 GND
-Text GLabel 750  6600 1    60   Input ~ 0
+Text GLabel 1350 5950 3    60   Input ~ 0
 VIN
 Text GLabel 3950 2650 0    60   Input ~ 0
 Vsense
 $Comp
 L R R1
 U 1 1 536F2BA6
-P 1750 5400
-F 0 "R1" V 1830 5400 40  0000 C CNN
-F 1 "10k" V 1757 5401 40  0000 C CNN
-F 2 "~" V 1680 5400 30  0000 C CNN
-F 3 "~" H 1750 5400 30  0000 C CNN
-	1    1750 5400
+P 3200 6450
+F 0 "R1" V 3280 6450 40  0000 C CNN
+F 1 "10k" V 3207 6451 40  0000 C CNN
+F 2 "~" V 3130 6450 30  0000 C CNN
+F 3 "~" H 3200 6450 30  0000 C CNN
+	1    3200 6450
 	-1   0    0    1   
 $EndComp
 $Comp
 L R R19
 U 1 1 536F2BAD
-P 1750 5900
-F 0 "R19" V 1830 5900 40  0000 C CNN
-F 1 "10k" V 1757 5901 40  0000 C CNN
-F 2 "~" V 1680 5900 30  0000 C CNN
-F 3 "~" H 1750 5900 30  0000 C CNN
-	1    1750 5900
+P 3200 6950
+F 0 "R19" V 3280 6950 40  0000 C CNN
+F 1 "10k" V 3207 6951 40  0000 C CNN
+F 2 "~" V 3130 6950 30  0000 C CNN
+F 3 "~" H 3200 6950 30  0000 C CNN
+	1    3200 6950
 	-1   0    0    1   
 $EndComp
-Text GLabel 1750 5650 0    60   Input ~ 0
+Text GLabel 3200 6700 0    60   Input ~ 0
 Vsense
-Text GLabel 1750 6150 3    60   Input ~ 0
+Text GLabel 3200 7200 3    60   Input ~ 0
 GND
-Text GLabel 1750 5150 1    60   Input ~ 0
+Text GLabel 3200 6200 1    60   Input ~ 0
 VIN
 $Comp
 L CONN_4 P1
@@ -332,38 +332,57 @@ Text GLabel 7600 3500 1    60   Input ~ 0
 $Comp
 L DIODE D1
 U 1 1 5371403C
-P 750 6800
-F 0 "D1" H 750 6900 40  0000 C CNN
-F 1 "DIODE" H 750 6700 40  0000 C CNN
-F 2 "~" H 750 6800 60  0000 C CNN
-F 3 "~" H 750 6800 60  0000 C CNN
-	1    750  6800
+P 1150 6800
+F 0 "D1" H 1150 6900 40  0000 C CNN
+F 1 "DIODE" H 1150 6700 40  0000 C CNN
+F 2 "~" H 1150 6800 60  0000 C CNN
+F 3 "~" H 1150 6800 60  0000 C CNN
+	1    1150 6800
 	0    -1   -1   0   
-$EndComp
-$Comp
-L DIODE D2
-U 1 1 53714072
-P 950 6800
-F 0 "D2" H 950 6900 40  0000 C CNN
-F 1 "DIODE" H 950 6700 40  0000 C CNN
-F 2 "~" H 950 6800 60  0000 C CNN
-F 3 "~" H 950 6800 60  0000 C CNN
-	1    950  6800
-	0    1    1    0   
 $EndComp
 $Comp
 L CP1 C1
 U 1 1 5378EA9A
-P 7500 2750
-F 0 "C1" H 7550 2850 50  0000 L CNN
-F 1 "220uF" H 7550 2650 50  0000 L CNN
-F 2 "~" H 7500 2750 60  0000 C CNN
-F 3 "~" H 7500 2750 60  0000 C CNN
-	1    7500 2750
+P 2300 5650
+F 0 "C1" H 2350 5750 50  0000 L CNN
+F 1 "1000uF" H 2350 5550 50  0000 L CNN
+F 2 "~" H 2300 5650 60  0000 C CNN
+F 3 "~" H 2300 5650 60  0000 C CNN
+	1    2300 5650
 	0    -1   -1   0   
 $EndComp
-Text GLabel 7300 2750 0    60   Input ~ 0
-+5V
-Text GLabel 7700 2750 2    60   Input ~ 0
+Text GLabel 2100 5650 0    60   Input ~ 0
+Valways
+Text GLabel 2500 5650 2    60   Input ~ 0
 GND
+$Comp
+L CONN_2 P3
+U 1 1 5394A61C
+P 1250 5600
+F 0 "P3" V 1200 5600 40  0000 C CNN
+F 1 "Vswitch" V 1300 5600 40  0000 C CNN
+F 2 "" H 1250 5600 60  0000 C CNN
+F 3 "" H 1250 5600 60  0000 C CNN
+	1    1250 5600
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1150 5950 1150 6600
+Text GLabel 1150 6600 0    60   Input ~ 0
+Valways
+$Comp
+L CP1 C2
+U 1 1 5394ABBB
+P 2300 6150
+F 0 "C2" H 2350 6250 50  0000 L CNN
+F 1 "220uF" H 2350 6050 50  0000 L CNN
+F 2 "~" H 2300 6150 60  0000 C CNN
+F 3 "~" H 2300 6150 60  0000 C CNN
+	1    2300 6150
+	0    -1   -1   0   
+$EndComp
+Text GLabel 2500 6150 2    60   Input ~ 0
+GND
+Text GLabel 2100 6150 0    60   Input ~ 0
++5V
 $EndSCHEMATC
